@@ -104,8 +104,8 @@ k_check =solve_dispersion(ω_check, water_depth) * water_depth
 λ_check = 2π/k_check * water_depth
 
 # 2 - Beam parameters
-hp = 0.038;  beam_length = 10
-# hp = 1.5;  beam_length = 10
+# hp = 0.038;  beam_length = 10
+hp = 1.5;  beam_length = 10
 # hp = 0.038;beam_length = 0.1 * λ_check                    #2
 # hp = 0.038;beam_length = round(0.1 * λ_check, digits=4)   #2
 ratio_beam2wave = beam_length/λ_check
@@ -144,14 +144,14 @@ case_ref = Mooring_case_params(name="Convergence-Study-fine", hₚ = hp, H=water
 Γb_f, ηₕ_f, U_Γη_f, V_Γ = run_mooring_case_freq_domain(case_ref)
 
 # For ω = 10 rad/s - slender - ratio ~ 200
-h3_rate = mesh_size_var.^(r2+1)*0.55      # [10m vs 20m] 0.20 or 0.30
-h4_rate = mesh_size_var.^(r3+1)*0.15
-h5_rate = mesh_size_var.^(r4+1)*0.05
+# h3_rate = mesh_size_var.^(r2+1)*0.55      # [10m vs 20m] 0.20 or 0.30
+# h4_rate = mesh_size_var.^(r3+1)*0.15
+# h5_rate = mesh_size_var.^(r4+1)*0.05
 
 # For ω = 10 rad/s - non slender - ratio ~ 6
-# h3_rate = mesh_size_var.^(r2+1)*0.026     # [10m vs 20m] 0.20 or 0.30
-# h4_rate = mesh_size_var.^(r3+1)*0.007
-# h5_rate = mesh_size_var.^(r4+1)*0.0025
+h3_rate = mesh_size_var.^(r2+1)*0.026     # [10m vs 20m] 0.20 or 0.30
+h4_rate = mesh_size_var.^(r3+1)*0.007
+h5_rate = mesh_size_var.^(r4+1)*0.0025
 
 # For ω = 10 rad/s - non slender - ratio ~ 1.6
 # h3_rate = mesh_size_var.^(r2+1)*2    # [10m vs 20m] 0.20 or 0.30
