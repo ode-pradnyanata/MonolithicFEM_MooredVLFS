@@ -63,6 +63,7 @@ v_pto = 10 .^ range(0, 7, length=50)  # logscale
 n_vpto = length(v_pto)
 # mooring_stiff = [0, 1e3, 1e5]
 mooring_stiff = [0, 1e3, 1e4, 1e5]
+label_ks = [L"\mathbf{0}", L"\mathbf{1\times10^3}", L"\mathbf{1\times10^4}", L"\mathbf{1\times10^5}"]
 n_mooring = length(mooring_stiff)
 path=datadir("5-3-Parametric-Cw-10m")
 
@@ -118,46 +119,54 @@ pto_max = v_pto[idx_max]
 for i = 1:1
 default(
   tickfontsize=13,
-  legendfontsize=13,
+  legendfontsize=12,
   labelfontsize=16,
   titlefontsize=16)  
 plot(xscale=:log10, xticks = (10 .^ (0:7), ["10⁰","10¹","10²","10³","10⁴","10⁵","10⁶","10⁷"]),
+     yticks = (0:0.2:1.2, ["0.0","0.2","0.4","0.6","0.8","1.0","1.2"]),
      legend=:best, size = (750,600), palette=:rainbow, 
      grid=true, gridlinewidth=1, gridalpha=0.2)
-plot!(v_pto, Cw_1, lw=3, label="ks = 0 kg m⁻¹ s⁻²")
-plot!(v_pto, Cw_2, lw=3, label="ks = 1e3 kg m⁻¹ s⁻²")
-plot!(v_pto, Cw_3, lw=3, label="ks = 1e4 kg m⁻¹ s⁻²")
-plot!(v_pto, Cw_4, lw=3, label="ks = 1e5 kg m⁻¹ s⁻²")
+plot!(v_pto, Cw_1, lw=3, label="ks = $(label_ks[1]) kg m⁻¹ s⁻²")
+plot!(v_pto, Cw_2, lw=3, label="ks = $(label_ks[2]) kg m⁻¹ s⁻²")
+plot!(v_pto, Cw_3, lw=3, label="ks = $(label_ks[3]) kg m⁻¹ s⁻²")
+plot!(v_pto, Cw_4, lw=3, label="ks = $(label_ks[4]) kg m⁻¹ s⁻²")
 vline!([pto_max], line=(2, :dash, :black), label=false)
-xlims!(1e0, 1e7)
+xlims!(1e0, 2e7)
 ylims!(0, 1)
 ylabel!(L"C_w \: [-]")
 xlabel!(L"v_{PTO} \: [\mathrm{kg \cdot m^{-1} \cdot s^{-1}}]")
-title!("Capture-width ratio for ω = $(@sprintf("%.4g", ω_data[1])) rad/sec")
+title!("Capture-width ratio for ω = $(@sprintf("%.4g", ω_data[1])) rad/s")
 display(current())
 savefig(plotsdir("5-3-Parametric-Cw-10m","5-3a Mooring-effect-on-Cw.png"))
 end
 
 
+
+label_vpto = [L"\mathbf{0}", L"\mathbf{3.7\times10^3}"]
 for i =1:1
-plot(legend=:best, size = (750,600), palette=:rainbow, 
+default(
+  tickfontsize=13,
+  legendfontsize=12,
+  labelfontsize=16,
+  titlefontsize=16)    
+plot(legend=:top, size = (750,600), palette=:rainbow,
      grid=true, gridlinewidth=1, gridalpha=0.2)
 
 result_defl_0 = filter(row -> row.v_pto == round(0, digits=8) && row.ks == round(0, digits=8)  && row.Lb == 10, df)
 η_def0  = result_defl_0.η[1]; x_def0  = result_defl_0.x[1]; Cw_def0 = result_defl_0.Cw[1]
-plot!(x_def0, η_def0,lw=3, label=L"v_{PTO} = 0, \: k_s = 0")
+plot!(x_def0, η_def0,lw=3, label="vₚₜₒ = $(label_vpto[1]), ks = $(label_ks[1])")
 
 result_defl_1 = filter(row -> row.v_pto == round(pto_max, digits=8) && row.ks == round(0,digits=8) && row.Lb == 10, df)
 η_defl = result_defl_1.η[1]; x_defl = result_defl_1.x[1]; Cw_def1 = result_defl_1.Cw[1]
-plot!(x_defl, η_defl,lw=3, label=L"v_{PTO} = 3.7e3, \: k_s = 0")
+plot!(x_defl, η_defl,lw=3, label="vₚₜₒ = $(label_vpto[2]), ks = $(label_ks[1])")
 
 result_defl_2 = filter(row -> row.v_pto == round(pto_max, digits=8) && row.ks == round(1e4,digits=8) && row.Lb == 10, df)
 η_def2 = result_defl_2.η[1]; x_def2 = result_defl_2.x[1]; Cw_def2 = result_defl_2.Cw[1]
-plot!(x_def2, η_def2,lw=3, label=L"v_{PTO} = 3.7e3, \: k_s = 1e4")
+plot!(x_def2, η_def2,lw=3, label="vₚₜₒ = $(label_vpto[2]), ks = $(label_ks[2])")
 
 result_defl_3 = filter(row -> row.v_pto == round(pto_max, digits=8) && row.ks == round(1e5,digits=8) && row.Lb == 10, df)
 η_def3 = result_defl_3.η[1]; x_def3 = result_defl_3.x[1]; Cw_def3 = result_defl_3.Cw[1]
-plot!(x_def3, η_def3,lw=3, label=L"v_{PTO} = 3.7e3, \: k_s = 1e5")
+plot!(x_def3, η_def3,lw=3, label="vₚₜₒ = $(label_vpto[2]), ks = $(label_ks[3])")
 
 annotate!([
   (1.2, 1.25, text("Cw = $(@sprintf("%.4f", Cw_def0))", 14)),
@@ -167,7 +176,7 @@ annotate!([
  
 ylabel!("|η|/κ₀ [-]")
 xlabel!("x [m]")
-title!("Hydroelastic response for ω = $(@sprintf("%.4g", ω_data[1])) rad/sec")
+title!("Hydroelastic response for ω = $(@sprintf("%.4g", ω_data[1])) rad/s")
 ylims!(0,1.5)
 display(current())
 savefig(plotsdir("5-3-Parametric-Cw-10m","5-3b Mooring-effect-on-hydroelastic response.png"))

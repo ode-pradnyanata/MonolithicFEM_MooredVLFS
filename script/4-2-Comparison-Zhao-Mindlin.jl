@@ -140,9 +140,9 @@ for i = 1:1
   plot!([], [], line=(2,:dot,:blue), label="Karperaki et al.")
   # plot!([], [], marker=(:circle,5), line=:false, label="Experimental Utsunomiya hₚ = 0.038 m")
   annotate!([
-    (3.0, 1.05, text("ω = $(@sprintf("%.4g", ω_data[1])) rad/sec", 14)),
-    (3.0, 0.70, text("ω = $(@sprintf("%.4g", ω_data[2])) rad/sec", 14)),
-    (3.0, 0.25, text("ω = $(@sprintf("%.4g", ω_data[3])) rad/sec", 14))])
+    (3.0, 1.05, text("ω = $(@sprintf("%.4g", ω_data[1])) rad/s", 14)),
+    (3.0, 0.70, text("ω = $(@sprintf("%.4g", ω_data[2])) rad/s", 14)),
+    (3.0, 0.30, text("ω = $(@sprintf("%.4g", ω_data[3])) rad/s", 14))])
   xlabel!("x [m]")
   ylabel!("|η|/κ₀ [-]")
   ylims!(0,1.5)
@@ -164,9 +164,9 @@ for i = 1:1
   plot!([], [], line=(2,:red),         label="Monolithic C/DG")
   plot!([], [], line=(2,:green), marker=(:square,4,:green), label="Zhao et al.")
   annotate!([
-    (3.0, 1.00, text("ω = $(@sprintf("%.4g", ω_data[1])) rad/sec", 14)),
-    (3.0, 0.55, text("ω = $(@sprintf("%.4g", ω_data[2])) rad/sec", 14)),
-    (3.0, 0.20, text("ω = $(@sprintf("%.4g", ω_data[3])) rad/sec", 14))])
+    (3.0, 1.00, text("ω = $(@sprintf("%.4g", ω_data[1])) rad/s", 14)),
+    (3.0, 0.55, text("ω = $(@sprintf("%.4g", ω_data[2])) rad/s", 14)),
+    (3.0, 0.20, text("ω = $(@sprintf("%.4g", ω_data[3])) rad/s", 14))])
   xlabel!("x [m]");  ylabel!("|η|/κ₀ [-]")
   ylims!(0,1.5);     xlims!(0,10)
   title!("hₚ = 0.075m")
@@ -186,9 +186,9 @@ for i = 1:1
   plot!([], [], line=(2,:red),         label="Monolithic C/DG")
   plot!([], [], line=(2,:green), marker=(:square,4,:green), label="Zhao et al.")
   annotate!([
-    (3.0, 1.00, text("ω = $(@sprintf("%.4g", ω_data[1])) rad/sec", 14)),
-    (3.0, 0.55, text("ω = $(@sprintf("%.4g", ω_data[2])) rad/sec", 14)),
-    (7.0, 0.55, text("ω = $(@sprintf("%.4g", ω_data[3])) rad/sec", 14))])
+    (3.0, 1.00, text("ω = $(@sprintf("%.4g", ω_data[1])) rad/s", 14)),
+    (3.0, 0.55, text("ω = $(@sprintf("%.4g", ω_data[2])) rad/s", 14)),
+    (7.0, 0.55, text("ω = $(@sprintf("%.4g", ω_data[3])) rad/s", 14))])
   quiver!([7.0], [0.5], quiver=([0], [-0.4]), color=:black)
   quiver!([3.0], [0.5], quiver=([0], [-0.25]), color=:black)  
   xlabel!("x [m]");  ylabel!("|η|/κ₀ [-]")

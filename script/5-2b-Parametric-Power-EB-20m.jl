@@ -115,6 +115,7 @@ end
 
 # INPUT 
 v_pto_check = [1e3, 2e6]
+label_vpto = [L"\mathbf{1\times10^3}", L"\mathbf{2\times10^6}"]
 ks_check = [0]
 ω_check = collect(1: 0.01 : 10) 
 k_check = [solve_dispersion(ω, g, h₀) for ω in ω_check]
@@ -184,7 +185,7 @@ for i = 1:nRange_pto
 
   end
   plot!(plt1,ω_check,total_P_pto[i,:], line=(2, :rainbow, :solid), #lw=3,palette=:rainbow, 
-      label="Pₚₜₒ, vₚₜₒ=$(vpto_select) kg m⁻¹s⁻¹")
+      label="Pₚₜₒ, vₚₜₒ = $(label_vpto[i]) kg m⁻¹s⁻¹")
   # plot!(plt1,ω_check,total_P_pto[i,:],lw=3,palette=:rainbow,
   #     label=latexstring("P_{pto}, v_{pto} = $(@sprintf("%.2e", vpto_select)) \\, \\mathrm{Nm^{-1}}"))
 
@@ -211,7 +212,7 @@ for i = 1:nRange_pto
   # end
   plot!(plt2,ω_check[idx_marker],Cw_calc[i, idx_marker],line=false, marker=(:square, :red, 4),
       label=false)
-  plot!(plt2,[], [], line=(2,:red), marker=(:square, :red, 4), label="Cw, vₚₜₒ=$(v_pto_check[i]) kg m⁻¹s⁻¹")  
+  plot!(plt2,[], [], line=(2,:red), marker=(:square, :red, 4), label="Cw, vₚₜₒ = $(label_vpto[i]) kg m⁻¹s⁻¹")  
 
 
   plot!(plt1, xlims=(1,(ω_check[end])), ylims=(0,maximum(Pw))) 

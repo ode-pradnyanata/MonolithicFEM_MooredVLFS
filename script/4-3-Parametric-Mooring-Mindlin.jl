@@ -11,6 +11,7 @@ using CSV
 using Printf
 using Roots
 using Statistics
+using LaTeXStrings
 
 # -------------------------------------------------------------
 #   1  REFERENCES DATA  ---------------------------------------
@@ -37,7 +38,8 @@ T_data = 2π ./ ω_data
 L_data = 2π ./ k_data
 @show L_data
 mooring_stiff = [0, 1e3, 1e5]
-label_ks = ["0","1e3","1e5"]
+# label_ks = ["0","1e3","1e5"]
+label_ks = [L"\mathbf{0}", L"\mathbf{1\times10^3}", L"\mathbf{1\times10^5}"]
 label_wave = ["a","b","c","d"]
 
 path=datadir("4-3-Parametric-Mooring")
@@ -133,15 +135,15 @@ function plotting_mooring(x_data, η_data, ω_data, label_wave, label_ks)
            line=false, marker=(4,marker_style[j], color_scale[j]), label=false)
   end
 
-  plot!([], [], line=(2,color_scale[1]), marker=(marker_style[1],4,color_scale[1]), label="ks=$(label_ks[1]) kg m⁻¹ s⁻²")
-  plot!([], [], line=(2,color_scale[2]), marker=(marker_style[2],4,color_scale[2]), label="ks=$(label_ks[2]) kg m⁻¹ s⁻²")
-  plot!([], [], line=(2,color_scale[3]), marker=(marker_style[3],4,color_scale[3]), label="ks=$(label_ks[3]) kg m⁻¹ s⁻²")
+  plot!([], [], line=(2,color_scale[1]), marker=(marker_style[1],4,color_scale[1]), label=latexstring("ks= $(label_ks[1]) kg m⁻¹ s⁻²"))
+  plot!([], [], line=(2,color_scale[2]), marker=(marker_style[2],4,color_scale[2]), label=latexstring("ks= $(label_ks[2]) kg m⁻¹ s⁻²"))
+  plot!([], [], line=(2,color_scale[3]), marker=(marker_style[3],4,color_scale[3]), label=latexstring("ks= $(label_ks[3]) kg m⁻¹ s⁻²"))
   
   xlabel!("x [m]")
   ylabel!("|η|/κ₀ [-]")
   ylims!(0,1.5)
   xlims!(0,10)
-  title!("ω = $(@sprintf("%.4g", ω_data)) rad/sec")
+  title!("ω = $(@sprintf("%.4g", ω_data)) rad/s")
   display(current())
   savefig(plotsdir("4-3-Parametric-Mooring","4-3 Parametric-mooring-$label_wave.png"))
 end

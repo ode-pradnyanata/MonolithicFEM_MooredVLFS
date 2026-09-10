@@ -10,6 +10,7 @@ using DataFrames
 using CSV
 using Roots
 using Statistics
+using LaTeXStrings
 
 # -------------------------------------------------------------
 #   1  REFERENCES DATA  ---------------------------------------
@@ -88,7 +89,7 @@ for i = 1:nRange_s
       label=false)
   plot!(plt1,wave_freq[idx_marker],η_bin[idx_marker], marker=(4, color_scale[i], marker_style[i]),        #lw=3,palette=:rainbow,
       label=false, line=false)
-  plot!([], [], line=(2,color_scale[i]), marker=(marker_style[i],4,color_scale[i]), label="ks=$(label_ks[i]) kg m⁻¹ s⁻²")
+  plot!([], [], line=(2,color_scale[i]), marker=(marker_style[i],4,color_scale[i]), label="ks = $(label_ks[i]) kg m⁻¹ s⁻²")
 end
 
 if location == "start"
@@ -100,19 +101,19 @@ if location == "start"
     at the Right boundary, and vice versa
   =#
   plot!(plt1, Michele_Right_1e3.Column1, Michele_Right_1e3.Column2, line=(1,:black,:dash), 
-        label="Michele et al. ks = 1e3 kg m⁻¹ s⁻²")
+        label="Michele et al. ks = $(label_ks[1]) kg m⁻¹ s⁻²")
   plot!(plt1, Michele_Right_1e4.Column1, Michele_Right_1e4.Column2, line=(1,:black,:dash), 
-        label="Michele et al. ks = 1e4 kg m⁻¹ s⁻²")
+        label="Michele et al. ks = $(label_ks[2]) kg m⁻¹ s⁻²")
   plot!(plt1, Michele_Right_1e5.Column1, Michele_Right_1e5.Column2, line=(1,:black,:dash), 
-        label="Michele et al. ks = 1e5 kg m⁻¹ s⁻²")
+        label="Michele et al. ks = $(label_ks[3]) kg m⁻¹ s⁻²")
 elseif location == "end"
   xx = "L (Right Boundary)"
   plot!(plt1, Michele_Left_1e3.Column1, Michele_Left_1e3.Column2, line=(1,:black,:dash), 
-        label="Michele et al. ks = 1e3 kg m⁻¹ s⁻²")
+        label="Michele et al. ks = $(label_ks[1]) kg m⁻¹ s⁻²")
   plot!(plt1, Michele_Left_1e4.Column1, Michele_Left_1e4.Column2, line=(1,:black,:dash), 
-        label="Michele et al. ks = 1e4 kg m⁻¹ s⁻²")
+        label="Michele et al. ks = $(label_ks[2]) kg m⁻¹ s⁻²")
   plot!(plt1, Michele_Left_1e5.Column1, Michele_Left_1e5.Column2, line=(1,:black,:dash), 
-        label="Michele et al. ks = 1e5 kg m⁻¹ s⁻²")
+        label="Michele et al. ks = $(label_ks[3]) kg m⁻¹ s⁻²")
 end
 # vline!([0.8, 1.0], color=:black, lw=0.5, linestyle=:dash, label=false)
 plot!(plt1, xlims=(0,6), ylims=(0,2.5))
@@ -143,7 +144,7 @@ for i = 1:n_mooring
   x = result_data.x; η = result_data.η
 
   plot!(plt1,x,η,lw=2,palette=:rainbow,
-          label="Mooring-ks=$(label_ks[i]) kg m⁻¹ s⁻²")  
+          label="Mooring-ks = $(label_ks[i]) kg m⁻¹ s⁻²")  
   max_η[i] = maximum(η[1][:])
 end
 @show (max_η)
@@ -160,7 +161,7 @@ plot!(plt1, xlims=(0,40), ylims=(0,y_limit))
 xlabel!("x [m]")
 ylabel!("|η|/η₀ [-]")
 title!("Plate Deflection
-hₚ = $hp m, ω = $(round(closest_freq,digits=4)) rad/sec", 
+hₚ = $hp m, ω = $(round(closest_freq,digits=4)) rad/s", 
 titlefont = font(12))
 plot_title = "Michele-Plate Deflection-ω$idx"
 savefig(plt1, plotsdir("5-1-Comparison-Moored-plot",plot_title))
@@ -191,7 +192,8 @@ k_data = [solve_dispersion(ω, g, h₀) for ω in ω_data]
 T_data = 2π ./ ω_data
 
 mooring_stiff = [1e3, 1e4, 1e5]
-label_ks = ["1e3","1e4","1e5"]
+# label_ks = ["1e3","1e4","1e5"]
+label_ks = [L"\mathbf{1\times10^3}", L"\mathbf{1\times10^4}", L"\mathbf{1\times10^5}"]
 
 path=datadir("5-1-Michele-Moored-Freq")
 
